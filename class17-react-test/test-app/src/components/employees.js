@@ -1,5 +1,5 @@
 import React from 'react';
-import employeesService from '../services/services';
+
 
 export default class Employees extends React.Component {
   state = {
@@ -7,17 +7,15 @@ export default class Employees extends React.Component {
   }
 
   componentDidMount() {
-    employeesService.getEmpolyeesList()
+    return fetch('https://reqres.in/api/users')
+      .then(response => response.json())
       .then(employees => {
         this.setState({ employees: employees.data })
-
       })
   }
   render() {
     const employeesData = this.state.employees;
-
     const employeesList = employeesData.length > 0 ? employeesData.map(item => {
-
       return (
         <React.Fragment>
           <h3>{item.first_name} {item.last_name} </h3>

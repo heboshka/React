@@ -2,35 +2,31 @@ import React, { Component } from 'react';
 import './App.css';
 import Main from './components/main'
 import Employees from './components/employees'
-
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Navigation from "./components/Navigation";
+import Error from './components/Error'
 
 class App extends Component {
-  state = {
-    page: false
-  }
-  chooseEmp = () => {
-    this.setState({ page: true })
-  }
-  chooseMain = () => {
-    this.setState({ page: false })
-  }
+
 
   render() {
-    const pageChoosen = this.state.page;
+
     return (
 
-      <div className="app">
-        <header >
-          <h2 onClick={this.chooseMain} > Home </h2>
-          <h2 onClick={this.chooseEmp}> Employees</h2>
-        </header>
+      <BrowserRouter>
+        <div>
+          <Navigation />
+          <Switch>
+            <Route path="/" component={Main} exact />
+            <Route path="/employees" component={Employees} />
+            <Route component={Error} />
+          </Switch>
+        </div>
+      </BrowserRouter>
 
-        {pageChoosen ?
-          <Employees /> : <Main />
 
-        }
 
-      </div>
+
     );
   }
 }
